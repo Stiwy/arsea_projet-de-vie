@@ -1,0 +1,31 @@
+.body {
+    padding-top: 100px;
+    min-height: 100vh;
+    margin-bottom: -300px;
+}
+
+footer, .minBody {
+    height: 300px;
+}
+
+footer {
+    height: 300px;
+    background: #3C3C3C;
+    position: relative;
+    color: white;
+}
+
+#copyright {
+    border-top: solid 1px #636363;
+    padding: 25px 0;
+    background: #373737;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-family: sk-regular,sans-serif;
+    font-size: 0.75em;
+    line-height: 1.7em;
+    font-weight: 400;
+}
+

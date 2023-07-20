@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="./css/pages/login.css">
+{% endblock %}
+
+{% block body %}
+<div class="overlay"></div>
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1>Mon projet de vie</h1>
+    <p>Connexion</p>
+
+    <div class="form-group">
+        <label for="inputUsername" id="inputUsernameLabel" class="hidden">Nom d'utilisateur</label>
+        <input type="text" placeholder="Nom d'utilisateur" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+    </div>
+
+    <div class="form-group">
+        <label for="inputPassword" id="inputPasswordLabel" class="hidden">Mot de passe</label>
+        <input type="password" placeholder="Mot de passe" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    </div>
+    <em id="forgot-password">Mot de passe oubliée ? <a href="">Cliquez ici</a></em>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <div>
+            <label id="_remember_me-label">
+                <input id="_remember_me" type="checkbox" name="_remember_me"> Se souvenir de moi ?
+            </label>
+    </div>
+
+    <button class="login-submit" type="submit">
+        Se connecter
+    </button>
+</form>
+
+<script>
+
+    let inputUsername = document.getElementById('inputUsername');
+    let inputPassword = document.getElementById('inputPassword');
+
+    function inputUsernameToggleLabel() {
+        let inputUsernameLabel = document.getElementById('inputUsernameLabel');
+
+        if (inputUsername.value) {
+            inputUsernameLabel.classList.remove('hidden');
+        } else {
+            inputUsernameLabel.classList.add('hidden');
+        }
+    }
+
+    function inputPasswordToggleLabel() {
+        let inputPasswordLabel = document.getElementById('inputPasswordLabel');
+
+        if (inputPassword.value) {
+            inputPasswordLabel.classList.remove('hidden');
+        } else {
+            inputPasswordLabel.classList.add('hidden');
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', inputUsernameToggleLabel());
+    document.addEventListener('DOMContentLoaded', inputPasswordToggleLabel());
+
+    inputUsername.addEventListener("keyup", inputUsernameToggleLabel);
+    inputPassword.addEventListener("keyup", inputPasswordToggleLabel);
+</script>
+{% endblock %}
